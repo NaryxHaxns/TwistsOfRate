@@ -30,7 +30,7 @@ class Console(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(max_length=100)
-    date = models.DateField().auto_now
+    date = models.DateField(auto_now=True)
     body = models.TextField()
     console = models.ForeignKey(Console, on_delete=models.CASCADE)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
@@ -40,8 +40,8 @@ class Blog(models.Model):
         return self.title
         
 class Comments(models.Model):
-    body = models.TextField()
-    date = models.DateField().auto_now
+    body = models.TextField(max_length=350)
+    date = models.DateField(auto_now=True)
     #rating = figure this out too
     console = models.ForeignKey(Console, on_delete=models.CASCADE)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
