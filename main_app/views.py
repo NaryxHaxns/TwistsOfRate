@@ -117,5 +117,6 @@ def add_blog_comment(request, blog_id):
   if form.is_valid():
     new_comment = form.save(commit=False)
     new_comment.blog_id = blog_id
+    new_comment.user = request.user
     new_comment.save()
-  return redirect('detail', blog_id=blog_id)
+  return redirect('blog_detail', blog_id=blog_id)
