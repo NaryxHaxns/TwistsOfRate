@@ -25,6 +25,7 @@
                     {% csrf_token %}
                     <input name="body" value="{{ comment.body }}">
                     <p>By {{ comment.user.username }} on {{ comment.date }}</p>
+                    <br>
                     <input type="submit" class="btn" id="btnBlogs" value="Edit Comment">
                 </form>
                 <a href="{% url 'delete_blog_comment' blog.id comment.id %}" class="btn" id="btnBlogs">Delete</a>

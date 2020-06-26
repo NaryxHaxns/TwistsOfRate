@@ -29,8 +29,19 @@
                     <div class="row">
                         <div class="card">
                             <div class="card-content">
-                                <p>{{ comment.body }}</p>
-                                <p>By {{ comment.user.username }} on {{ comment.date }}</p>
+                                {% if comment.user.id|stringformat:"i" == user_id|stringformat:"i" %}
+                                    <form action="{% url 'edit_console_comment' console.id comment.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <input name="body" value="{{ comment.body }}">
+                                        <p>By {{ comment.user.username }} on {{ comment.date }}</p>
+                                        <br>
+                                        <input type="submit" class="btn" id="btnBlogs" value="Edit Comment">
+                                    </form>
+                                    <a href="{% url 'delete_console_comment' console.id comment.id %}" class="btn" id="btnBlogs">Delete</a>
+                                {% else %}
+                                    <p>{{ comment.body }}</p>
+                                    <p>By {{ comment.user.username }} on {{ comment.date }}</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

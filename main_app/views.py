@@ -179,6 +179,21 @@ def add_console_comment(request, console_id):
     new_comment.save()
   return redirect('console_detail', console_id=console_id)
 
+@login_required
+def edit_console_comment(request, console_id, comment_id):
+  form = CommentForm(request.POST)
+  comment = ConsoleComment.objects.get(id=comment_id)
+  if form.is_valid():
+    body = form.cleaned_data['body']
+    comment.body = body
+    comment.save()
+  return redirect('console_detail', console_id=console_id)
+
+@login_required
+def delete_console_comment(request, console_id, comment_id):
+  ConsoleComment.objects.filter(id=comment_id).delete()
+  return redirect('console_detail', console_id=console_id)
+
 class BlogCreate(LoginRequiredMixin, CreateView):
   model = Blog
   fields = ['title', 'body']
